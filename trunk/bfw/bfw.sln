@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bfw", "bfw.vcproj", "{3D22D9E0-9281-4212-A51A-D4954F5E016A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		DebugDLL = DebugDLL
+		DLL = DLL
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{3D22D9E0-9281-4212-A51A-D4954F5E016A}.Debug.ActiveCfg = Debug|Win32
+		{3D22D9E0-9281-4212-A51A-D4954F5E016A}.Debug.Build.0 = Debug|Win32
+		{3D22D9E0-9281-4212-A51A-D4954F5E016A}.DebugDLL.ActiveCfg = DebugDLL|Win32
+		{3D22D9E0-9281-4212-A51A-D4954F5E016A}.DebugDLL.Build.0 = DebugDLL|Win32
+		{3D22D9E0-9281-4212-A51A-D4954F5E016A}.DLL.ActiveCfg = DLL|Win32
+		{3D22D9E0-9281-4212-A51A-D4954F5E016A}.DLL.Build.0 = DLL|Win32
+		{3D22D9E0-9281-4212-A51A-D4954F5E016A}.Release.ActiveCfg = Release|Win32
+		{3D22D9E0-9281-4212-A51A-D4954F5E016A}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionItems) = postSolution
+		bfw.vsd = bfw.vsd
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
