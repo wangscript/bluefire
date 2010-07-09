@@ -38,7 +38,7 @@ int bfr_init_opengl() {
 
 	already_shown = 1;
 
-	zlogthis("render_ogl: Bluefire is written in compliance with OpenGL 1.4\n");
+	//zlogthis("render_ogl: Bluefire is written in compliance with OpenGL 1.4\n");
 
 	zlogthis("render_ogl: Rendering subsystem information...\n\n"
 			 "Renderer: %s\n"
@@ -62,7 +62,7 @@ int bfr_init_opengl() {
 
 	int maxTexelUnits;
 
-	zlogthis( "\tGL_ARB_multitexture... ");
+	zlogthis( "\tMultitexturing support... ");
 	if(checkExt(extensions,"GL_ARB_multitexture")) {	
 		//CHECKPOINT;
 		glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&maxTexelUnits);
@@ -87,7 +87,7 @@ int bfr_init_opengl() {
 	}
 	
 
-	zlogthis("\tGL_ARB_vertex_shader/GL_ARB_fragment_shader... ");
+	zlogthis("\tGLSL support... ");
 	if(checkExt(extensions,"GL_ARB_vertex_shader") && checkExt(extensions,"GL_ARB_fragment_shader")) {
 	   
 	   #ifndef GL_GLEXT_PROTOTYPES
@@ -377,6 +377,7 @@ bool checkExt (char *string, const char *search) {
 	}
 }
 
+/*
 void bf_enable_lighting() {
 	BEGIN_FUNC("bf_enable_lighting")
 	glEnable(GL_LIGHTING);
@@ -389,6 +390,7 @@ void bf_disable_lighting() {
 	glDisable(GL_LIGHTING);
 	END_FUNC
 }
+*/
 
 void bf_resize_disp(int width, int height, HWND hwndz) {
 	BEGIN_FUNC("bf_resize_disp")

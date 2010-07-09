@@ -9,23 +9,37 @@
 */
 
 #define _BF_MAIN
-#define BF_MIN_REQ_BUILD	20040827
+#define BF_MIN_REQ_BUILD 20100407
 
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
 #include "../bluefire.h"
 #include "ogl.h"
 
 
-
 int dll_init(BF_DLL_EXPORT *setz) {
 
-	if(setz->build_num >= BF_MIN_REQ_BUILD && setz->build_num < 20080000) {
+	char xtxt[1024];
+
+	if(setz->build_num >= BF_MIN_REQ_BUILD) {
 		// ok, it's fine
 	} else {
-		return -1;
+		sprintf(xtxt,"ERROR: This version of render_ogl.dll (OpenGL Renderer) is incompatible\n"
+					 "with the current version of bluefire.dll (BFW Core)!\n\n"
+					 "OGL Renderer requires build # %i (or higher)\n"
+					 "BFW Core build # %i\n\n"
+					 "OGL Renderer requires a certain build of BFW Core due to periodical\n"
+					 "changes to the way the two modules communicate. Whenever changes to\n"
+					 "BFW Core's DLL module binding scheme occurs or shared data structrues\n"
+					 "are changed, this required build number increases to prevent unending\n"
+					 "amounts of problems! -- tetrisfrog  ;)"
+					 ,BF_MIN_REQ_BUILD,setz->build_num);
+
+		MessageBox(NULL,xtxt,"bfw dreamcatcher - Incompatible Builds!",0);
+		return 1;
 	}
 
 	renderx = setz->renderx;
@@ -50,14 +64,38 @@ int dll_init(BF_DLL_EXPORT *setz) {
 	bf_getpoly = setz->bf_getpoly;
 	bf_poly_cnt = setz->bf_poly_cnt;
 	go_down = setz->go_down;
+	bf_exception = setz->bf_exception;
 	
-	zlogthis("\nBluefire OpenGL Rendering Module.\n");
-	zlogthis("Copyright (c) 2004-2009 Jacob Hipps.\n");
-	zlogthis("[test build - %s @ %s]\n",__DATE__,__TIME__);
-	zlogthis("DLL initialized successfully.\n");
+	char v1[128];
+	char v2[128];
+	int v3;
+
+	rdx_get_version(v1);
+	rdx_get_buildtime(v2);
+	v3 = rdx_get_buildi();
+
+	zlogthis("\n*******************************************************************************\n");
+	zlogthis("Bluefire OpenGL Rendering Module.\n");
+	zlogthis("Version %s - build %i - compiled %s\n",v1,v3,v2);
+	zlogthis("Copyright (c) 2004-2010 Jacob Hipps, all rights reserved.\n");
+	zlogthis("*******************************************************************************\n\n");
+
+	zlogthis("dll_init: Setting up exception handling... ");
+
+	// use bfw core's exception handler
+	signal(SIGFPE,bf_exception);
+	signal(SIGILL,bf_exception);
+	signal(SIGSEGV,bf_exception);
+
+	zlogthis("Ok\n");
+
+	zlogthis("dll_init: Rendering DLL initialized successfully.\n");
 
 #ifdef BF_WITH_SHADERS
-	zlogthis("BF_WITH_SHADERS defined. Shader support enabled for this build.\n");
+	zlogthis("dll_init: BF_WITH_SHADERS defined. Shader support enabled for this build!\n");
+	zlogthis("          OpenGL fixed functionality bypassed!\n");
+#else
+	zlogthis("dll_init: BF_WITH_SHADERS not defined. Shader support will NOT be available!\n");
 #endif
 
 	return 0;

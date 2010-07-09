@@ -29,6 +29,18 @@ int enable_blur = 1;
 int show_normals = 0;
 int rtx_num;
 
+// BFW state
+extern int atr_bfstate;	// render state attribute index
+extern short bfstate;	// render state bitmask
+						// 1	= Lighting enabled
+						// 2	= Texturing enabled
+bool st_texture = true;
+bool st_lighting = true;
+int  st_rastermode = 0;
+
+#define update_state glVertexAttrib1sARB(atr_bfstate,bfstate)
+
+
 void bf_set_radblur(int state) {
 	enable_blur = state;
 	return;
@@ -88,10 +100,15 @@ void bf_render_actor(BF_ACTOR_DATA *actorx) {
 
 	glColor4f(actorx->r,actorx->g,actorx->b,actorx->a);
 
+	bf_disable_textures();
+	bf_disable_lighting();
+
 	glBegin(GL_LINES);
 
+	update_state;
+
 	glVertex3f(x - 1.0f, y, z);
-	glVertex3f(x + 1.0f, y, z);
+	glVertex3f(x + 1.0f, y, z);	
 
 	glVertex3f(x, y - 1.0f, z);
 	glVertex3f(x, y + 1.0f, z);
@@ -182,6 +199,9 @@ void bf_render_actor(BF_ACTOR_DATA *actorx) {
 
 	glEnd();
 
+	bf_enable_lighting();
+	bf_enable_textures();
+
 	END_FUNC
 	return;
 }
@@ -270,6 +290,8 @@ int bf_draw_env(float x, float y, float z, float or, float oy, float op) {
 	glRotatef(op, 1.0f, 0.0f, 0.0f);	// pitch
 	
 	int i, ix, polylim, texable, lm_enable;
+
+	bf_update_light(bf_getlight(0));
 	
 
 	polylim = bf_poly_cnt();	// get number of polys
@@ -281,10 +303,9 @@ int bf_draw_env(float x, float y, float z, float or, float oy, float op) {
 	else texable = 0;
 
 	if(texable) {
-		glEnable(GL_TEXTURE_2D);
+		bf_enable_textures();
 	} else {
-		glDisable(GL_TEXTURE_2D);
-		//glDisable(GL_LIGHTING);
+		bf_disable_textures();
 	}
 
 	int lite_on = 0;
@@ -293,13 +314,16 @@ int bf_draw_env(float x, float y, float z, float or, float oy, float op) {
 	for(i = 0; i < polylim; i++) {
 
 		thispoly = bf_getpoly(i);
-			
+		
+		bf_enable_lighting();
+
 		BF_TEXNODE *blehtex = bf_getimg(thispoly->df_texdex);
 		if(blehtex != 0) {
+			bf_enable_textures();
 			glBindTexture(GL_TEXTURE_2D, blehtex->tex_id);
 			glColor4f(1.0f,1.0f,1.0f,thispoly->opacity);
 		} else {
-			glDisable(GL_TEXTURE_2D);
+			bf_disable_textures();
 			glColor4f(0.5f,0.5f,0.7f,thispoly->opacity);
 		}
 
@@ -310,7 +334,7 @@ int bf_draw_env(float x, float y, float z, float or, float oy, float op) {
 		
 		if(thispoly->lm_texdex != 0 && (renderx->flags & BF_RZ_LMAPS_ENABLED) && ext_ARB_multitexture) {
 			glActiveTextureARB(GL_TEXTURE1_ARB);
-			glEnable(GL_TEXTURE_2D);
+			// glEnable(GL_TEXTURE_2D); // obsolete w/ shaders
 			glBindTexture(GL_TEXTURE_2D, thispoly->lm_texdex);
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_EXT);				
 			glTexEnvf(GL_TEXTURE_ENV, GL_COMBINE_RGB_EXT, GL_MODULATE);
@@ -321,17 +345,18 @@ int bf_draw_env(float x, float y, float z, float or, float oy, float op) {
 
 		glPushName(i);	// selection mode ID
 		glBegin(GL_TRIANGLES);
+		update_state;
 
 		for(ix = 0; ix < 3; ix++) {
-			if(texable) {				
+			
+			if(texable) {
 				glTexCoord2f(-thispoly->tex[ix].u,-thispoly->tex[ix].v);
 				//if(lm_enable) glMultiTexCoord2fARB(GL_TEXTURE1_ARB,thispoly->lm_tex[ix].u,thispoly->lm_tex[ix].v);
 			}
-
-
+			
 			glVertex3f(thispoly->vertex[ix].x,thispoly->vertex[ix].y,thispoly->vertex[ix].z);
 			glNormal3f(thispoly->normal.x,thispoly->normal.y,thispoly->normal.z);
-
+			
 		}		
 
 		glEnd(); // TRIANGLES
@@ -342,21 +367,21 @@ int bf_draw_env(float x, float y, float z, float or, float oy, float op) {
 			glActiveTextureARB(GL_TEXTURE0_ARB);
 		}
 
+
 		// if the polygon is selected, give it a 33% blue highlight
 		
 
 		if(thispoly->flags & BF_TRI_SELECTED) {
-			if(texable) {
-				glDisable(GL_TEXTURE_2D);
-				if(glIsEnabled(GL_LIGHTING)) {
-					glDisable(GL_LIGHTING);
-					lite_on = 1;
-				}
+			if(texable) {				
+				bf_disable_textures();
+				bf_disable_lighting();
 			}
 
 
 			glBegin(GL_TRIANGLES);
-			for(ix = 0; ix < 3; ix++) {
+			update_state;
+
+			for(ix = 0; ix < 3; ix++) {				
 				glColor4f(0.0f,0.0f,1.0f,0.33f);
 				glVertex3f(thispoly->vertex[ix].x,thispoly->vertex[ix].y,thispoly->vertex[ix].z);
 				glNormal3f(thispoly->normal.x,thispoly->normal.y,thispoly->normal.z);
@@ -368,8 +393,8 @@ int bf_draw_env(float x, float y, float z, float or, float oy, float op) {
 			glEnd();
 
 			if(texable) {
-				glEnable(GL_TEXTURE_2D);
-				if(lite_on) glEnable(GL_LIGHTING);				
+				bf_enable_textures();
+				bf_enable_lighting();
 			}
 
 		}
@@ -401,10 +426,10 @@ int bf_renderq(float x, float y, float z, float or, float oy, float op) {
 	ex = (z * sin(or * piover180)) + (x * cos(or * piover180));
 	ez = (z * cos(or * piover180)) - (x * sin(or * piover180));
 
-	glTranslatef(ex,ey,ez);
-	glRotatef(or, 0.0f, 1.0f, 0.0f);	// rotation
-	glRotatef(oy, 0.0f, 0.0f, 1.0f);	// yaw
-	glRotatef(op, 1.0f, 0.0f, 0.0f);	// pitch
+	//glTranslatef(ex,ey,ez);
+	//glRotatef(or, 0.0f, 1.0f, 0.0f);	// rotation
+	//glRotatef(oy, 0.0f, 0.0f, 1.0f);	// yaw
+	//glRotatef(op, 1.0f, 0.0f, 0.0f);	// pitch
 
 	glColor4f(1.0f,1.0f,1.0f,1.0f); // set full opacity
 
@@ -417,12 +442,12 @@ int bf_renderq(float x, float y, float z, float or, float oy, float op) {
 	for(i = 0; i < num_objs; i++) {
 		thisobj = bf_getobject(i);
 		if(thisobj && thisobj->bEnabled && thisobj->bVisible && thisobj->bRadBlur) {
-			if(thisobj->bNoLight) glDisable(GL_LIGHTING);
-			else glEnable(GL_LIGHTING);
+			if(thisobj->bNoLight) bf_disable_lighting();
+			else bf_enable_lighting();
 			glLoadIdentity();
 			glTranslatef(ex + thisobj->pos.x, ey + thisobj->pos.y, ez + thisobj->pos.z);
 			glRotatef(or + thisobj->orient.r, 0.0f, 1.0f, 0.0f);
-			glRotatef(oy + thisobj->orient.y, 0.0f, 0.0f, 1.0f);
+			//glRotatef(oy + thisobj->orient.y, 0.0f, 0.0f, 1.0f);
 			glRotatef(op + thisobj->orient.p, 1.0f, 0.0f, 0.0f);
 			if(enable_blur) bf_rad_blur_pass1(i,rtx_num);
 		}
@@ -452,17 +477,24 @@ int bf_renderq(float x, float y, float z, float or, float oy, float op) {
 	for(i = 0; i < num_objs; i++) {
 		thisobj = bf_getobject(i);
 		if(thisobj && thisobj->bEnabled && thisobj->bVisible && !(thisobj->bRenderFirst || thisobj->bRenderLast )) {
-			if(thisobj->bNoLight) glDisable(GL_LIGHTING);
-			else glEnable(GL_LIGHTING);
+			if(thisobj->bNoLight) bf_disable_lighting();
+			else bf_enable_lighting();
+
 			glLoadIdentity();
 
-			
+			// apply camera xforms
 			glTranslatef(ex,ey,ez);
+			glRotatef(or,0.0f,1.0f,0.0f);
+			glRotatef(op,1.0f,0.0f,0.0f);
+
+			// update light
+			bf_update_light(bf_getlight(0));
+
+			// apply object xforms
 			glTranslatef(thisobj->pos.x, thisobj->pos.y, thisobj->pos.z);
+			glRotatef(thisobj->orient.r, 0.0f, 1.0f, 0.0f);			
+			glRotatef(thisobj->orient.p, 1.0f, 0.0f, 0.0f);
 			
-			glRotatef(oy + thisobj->orient.y, 0.0f, 0.0f, 1.0f);
-			glRotatef(op + thisobj->orient.p, 1.0f, 0.0f, 0.0f);
-			glRotatef(or + thisobj->orient.r, 0.0f, 1.0f, 0.0f);
 
 			
 			glPushName(i);	// selection mode ID
@@ -597,12 +629,12 @@ int draw_objx(int nummy) {
 			glColor4f(swimtime->surfdex[i].cr,swimtime->surfdex[i].cg,swimtime->surfdex[i].cb,swimtime->surfdex[i].trans);
 
 			if(swimtime->surfdex[i].filename[0] && swimtime->surfdex[i].filename[1]) {
-				glEnable(GL_TEXTURE_2D);
+				bf_enable_textures();
 				unsigned int texy = bf_getimg(swimtime->surfdex[i].snum)->tex_id;
 				glBindTexture(GL_TEXTURE_2D, texy);				
 				// TEXTURE-UNIT #0 (color/diffuse texture)
 				glActiveTextureARB(GL_TEXTURE0_ARB);
-				glEnable(GL_TEXTURE_2D);
+				bf_enable_textures();
 				glBindTexture(GL_TEXTURE_2D, texy);
 				glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_EXT);
 				glTexEnvf (GL_TEXTURE_ENV, GL_COMBINE_RGB_EXT, GL_REPLACE);
@@ -620,12 +652,12 @@ int draw_objx(int nummy) {
 				*/
 				texable = 1;
 			} else {
-				glDisable(GL_TEXTURE_2D);
+				bf_disable_textures();
 				texable = 0;
 			}
 		} else {
-			glDisable(GL_TEXTURE_2D);
-			glDisable(GL_LIGHTING);
+			bf_disable_textures();
+			bf_disable_lighting();
 			texable = 0;
 		}
 
@@ -634,6 +666,7 @@ int draw_objx(int nummy) {
 		for(z = 0; z < swimtime->surfdex[i].scount; z++) {
 
 			glBegin(GL_TRIANGLES);
+			update_state;
 
 			for(x = 0; x < 3; x++) {	
 
@@ -722,12 +755,13 @@ void bf_setcolor (float r, float g, float b, float a) {
 	END_FUNC
 }
 
-// texture shaz
+// texturing
 
 void bf_enable_textures() {
 	BEGIN_FUNC("bf_enable_textures")
 
 	glEnable(GL_TEXTURE_2D);
+	if(!(bfstate & BF_STATE_TEXTURE)) bfstate += BF_STATE_TEXTURE;
 
 	END_FUNC
 }
@@ -736,6 +770,27 @@ void bf_disable_textures() {
 	BEGIN_FUNC("bf_disable_textures")
 
 	glDisable(GL_TEXTURE_2D);
+	if(bfstate & BF_STATE_TEXTURE) bfstate -= BF_STATE_TEXTURE;
+
+	END_FUNC
+}
+
+// lighting
+
+void bf_enable_lighting() {
+	BEGIN_FUNC("bf_enable_lighting")
+
+	glEnable(GL_LIGHTING);
+	if(!(bfstate & BF_STATE_LIGHTS)) bfstate += BF_STATE_LIGHTS;
+
+	END_FUNC
+}
+
+void bf_disable_lighting() {
+	BEGIN_FUNC("bf_disable_lighting")
+
+	glDisable(GL_LIGHTING);
+	if(bfstate & BF_STATE_LIGHTS) bfstate -= BF_STATE_LIGHTS;
 
 	END_FUNC
 }
@@ -848,7 +903,7 @@ void bf_apply_lights() {
 }
 
 void bf_update_light(BF_LIGHT *light) {
-
+	BEGIN_FUNC("bf_update_light")
 /*
 typedef struct {	
 	int lumens;			// luminous flux (lumens)
@@ -872,13 +927,17 @@ typedef struct {
 	glEnable(GL_LIGHTING);
 
 	float zeroz[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	float lcolor[4] = { 1.0f, 0.8f, 0.8f, 0.75f };
+	float lcolor[4] = { 0.8f, 0.8f, 0.8f, 0.75f };
 	float acolor[4] = { 0.6f, 0.6f, 0.8f, 0.2f };
-	float pos[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	//float pos[4] = { light->x, light->y, light->z, 1.0f };
 
-	glLightfv(GL_LIGHT1, GL_AMBIENT, (float*)&acolor);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, (float*)&lcolor);
-	glLightfv(GL_LIGHT1, GL_POSITION, (float*)&pos);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, (float*)(&light->r));
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, (float*)(&light->r));
+	glLightfv(GL_LIGHT0, GL_POSITION, (float*)(&light->x));
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 50.0f / (float(light->lumens) + 1.0f));
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0f);
+
 
 	/*
 	// zero-out stuff
@@ -908,7 +967,8 @@ typedef struct {
 			break;
 	}
 	*/
-	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHT0);
 
+	END_FUNC
 	return;
 }
