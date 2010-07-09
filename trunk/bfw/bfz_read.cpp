@@ -237,7 +237,7 @@ int bfz_loadimg(BFZ_FILE *bfzp, char res_name[], int nummy) {
 	BFZ_CHUNK_HEADER chunky;
 
 	fseek(bfz_ptr,0,0);
-	
+
 	int found = 0;
 	while(!feof(bfz_ptr)) {
 		if(!fread(&chunky,sizeof(BFZ_CHUNK_HEADER),1,bfz_ptr)) break;

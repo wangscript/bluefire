@@ -47,7 +47,8 @@ int bf_init_audio() {
 	char devices[16][32];
 	int x;
 	int xx = 0;
-	for(int i = 0; i < 16; i++) {
+	int i;
+	for(i = 0; i < 16; i++) {
 		for(x = 0; x < 31; x++) {
 			devices[i][x] = auddevs[xx];
 			xx++;

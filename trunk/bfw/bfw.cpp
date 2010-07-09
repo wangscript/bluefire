@@ -72,7 +72,7 @@ bf_init()
 	Description:
 		Initializes Bluefire.
 		Opens the logfile (if compiled-in), the console (if compiled-in),
-		sets up exception handling for Bluefire (NOT client program), intializes the function
+		sets up exception handling for Bluefire (NOT client program), initializes the function
 		trace stack, initializes the resource pools (objects, images, etc.).
 
 	Arguments:
@@ -150,14 +150,15 @@ int bf_init(void (__cdecl * go_downx)()) {
 	init_console();
 	zlogthisx("new console support enabled. (ENABLE_NEW_CONSOLE)");
 	#endif
-BF_EXPORTZ char* bf_get_buildtime();
-BF_EXPORTZ char* bf_get_build();
+//BF_EXPORTZ char* bf_get_buildtime();
+//BF_EXPORTZ char* bf_get_build();
 
-	zlogthis("*****************************************\n");
-    zlogthisx("Bluefire rendering engine.");
-	zlogthisx("Version %s, build %s - compiled %s",bf_get_version(), bf_get_build(), bf_get_buildtime());
-	zlogthisx("Copyright (c) 2003-2009 Jacob Hipps, all rights reserved.\n");
-	
+	zlogthis("*******************************************************************************\n");
+    zlogthis("Bluefire rendering engine.\n");
+	zlogthis("Version %s - build %s - compiled %s\n",bf_get_version(), bf_get_build(), bf_get_buildtime());
+	zlogthis("Copyright (c) 2003-2010 Jacob Hipps, all rights reserved.\n");
+	zlogthis("*******************************************************************************\n\n");
+
 	// load config
 	bf_load_config();
 
@@ -165,13 +166,6 @@ BF_EXPORTZ char* bf_get_build();
     zlogthisx("zlib version %s",zlibVersion());
     zlogthisx("libpng version %s",png_libpng_ver);
 	bfi_init();
-
-	zlogthisx("stdout has been redirected to bfw_con.log");
-	freopen("bfw_con.log", "w", stdout);	
-	printf("bluefire stdout logfile\n\n");
-
-	zlogthisx("stderr has been redirected to bfw_stderr.log");
-	freopen("bfw_stderr.log", "w", stderr);
 
 	// these are hacks to test the audio <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	// these should be called by the client application when correctly implemented!!
@@ -385,7 +379,7 @@ int zlogfile_wrtx(const char *fmt, ...) {
 
 	#endif
 	#ifdef ENABLE_CONSOLE_SUPPORT
-	conprintf("%s",text);
+	conprintf("%s\n",text);
 	#endif
 
 	#ifdef ENABLE_NEW_CONSOLE

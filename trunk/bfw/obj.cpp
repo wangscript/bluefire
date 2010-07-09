@@ -182,6 +182,7 @@ int bf_format_objx(char *delerium, int obj_num) {
 	char filz[128];
 	char nrname[128];
 	char newfilen[128];
+	int xy;
 
 	extern char *cur_file;
 
@@ -193,7 +194,7 @@ int bf_format_objx(char *delerium, int obj_num) {
 
 			if(bf_getimg_num(swimtime->surfdex[i].filename) == -1) {				
 				
-				for(int xy = 0; xy < strlen(swimtime->surfdex[i].filename); xy++) {					
+				for(xy = 0; xy < strlen(swimtime->surfdex[i].filename); xy++) {					
 					if(swimtime->surfdex[i].filename[xy] == ':') {						
 						break;
 					}
