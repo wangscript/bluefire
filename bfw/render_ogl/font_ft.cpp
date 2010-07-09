@@ -37,6 +37,11 @@ void bf_ft_addfont(const char * fname, unsigned int h);
 void bf_ft_print(int font_id, float x, float y, const char *fmt, ...);
 void bf_ft_font_remove();
 
+extern int atr_bfstate;	// render state attribute index
+extern short bfstate;	// render state bitmask
+						// 1	= Lighting enabled
+						// 2	= Texturing enabled
+#define update_state glVertexAttrib1sARB(atr_bfstate,bfstate)
 
 // local utility functions (private)
 void ft_make_dlist ( FT_Face face, char ch, GLuint list_base, GLuint * tex_base );
@@ -212,9 +217,11 @@ void bf_ft_addfont(const char * fname, unsigned int h) {
 	glGenTextures( 128, ft_font.ft_textures );
 
 	// This Is Where We Actually Create Each Of The Fonts Display Lists.
+	bfr_set_blending(BF_AMODE_LUMA);
 	for(unsigned char i=0;i<128;i++) {
 		ft_make_dlist(face,i,ft_font.list_base,ft_font.ft_textures);
 	}
+	bfr_set_blending(BF_AMODE_NORMAL);
 
 	// We Don't Need The Face Information Now That The Display
 	// Lists Have Been Created, So We Free The Assosiated Resources.
@@ -311,7 +318,7 @@ void ft_make_dlist ( FT_Face face, char ch, GLuint list_base, GLuint * tex_base 
 
 	// Now We Create The Display List
 	glNewList(ft_font.list_base+ch,GL_COMPILE);
-
+	
 	glBindTexture(GL_TEXTURE_2D,tex_base[ch]);
 	//glBindTexture(GL_TEXTURE_2D,0);
 
@@ -342,7 +349,9 @@ void ft_make_dlist ( FT_Face face, char ch, GLuint list_base, GLuint * tex_base 
 	// Oriented Quite Like We Would Like It To Be,
 	// But We Link The Texture To The Quad
 	// In Such A Way That The Result Will Be Properly Aligned.
+
 	glBegin(GL_QUADS);
+	update_state;
 	glTexCoord2d(0,0); glVertex2f(0,bitmap.rows);
 	glTexCoord2d(0,y); glVertex2f(0,0);
 	glTexCoord2d(x,y); glVertex2f(bitmap.width,0);
@@ -357,6 +366,7 @@ void ft_make_dlist ( FT_Face face, char ch, GLuint list_base, GLuint * tex_base 
 
 	// Finish The Display List
 	glEndList();
+
 }
 
 
@@ -385,11 +395,12 @@ void bf_ft_print(int font_id, float x, float y, const char *fmt, ...)  {
 
 	glPushAttrib(GL_LIST_BIT | GL_CURRENT_BIT  | GL_ENABLE_BIT | GL_TRANSFORM_BIT); 
 	glMatrixMode(GL_MODELVIEW);
-	glDisable(GL_LIGHTING);
-	glEnable(GL_TEXTURE_2D);
+	bf_disable_lighting();
+	bf_enable_textures();
 	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);      
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	bfr_set_blending(BF_AMODE_LUMA);
 
 	glListBase(font);
 
@@ -429,6 +440,8 @@ void bf_ft_print(int font_id, float x, float y, const char *fmt, ...)  {
 	glPopAttrib();          
 
 	pop_projection_matrix();
+	bfr_set_blending(BF_AMODE_NORMAL);
+
 }
 
 

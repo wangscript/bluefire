@@ -2,7 +2,7 @@
 
   Bluefire: OpenGL Rendering Extention: Header file
 
-  (c) Copyright 2004-2009 Jacob Hipps
+  (c) Copyright 2004-2010 Jacob Hipps
 
 */
 

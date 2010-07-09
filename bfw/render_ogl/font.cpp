@@ -125,11 +125,15 @@ int bf_tprintf(int x, int y, BF_FT_FONT *font_ptr, const char *fmt, ... ) {
 
     char text[512]; // maximum of 512 characters
 
-	glDisable(GL_LIGHTING);
+	bf_disable_lighting();
+	bf_enable_textures();
+
 	//glEnable(GL_TEXTURE_2D);
 	//glBindTexture(GL_TEXTURE_2D, font_ptr->tex_num);
 
 	//glColor4f(1.0f,1.0f,1.0f,1.0f);
+
+	bfr_set_blending(BF_AMODE_LUMA);
 
     va_list ap;
     va_start(ap, fmt);
@@ -143,6 +147,8 @@ int bf_tprintf(int x, int y, BF_FT_FONT *font_ptr, const char *fmt, ... ) {
 
     glPopAttrib(); // pop the attributes
 	
+	bfr_set_blending(BF_AMODE_NORMAL);
+
     return 0;
 }
 
