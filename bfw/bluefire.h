@@ -2,15 +2,15 @@
 
   Bluefire: Global Header
 
-  (c) Copyright 2004-2009 Jacob Hipps
+  (c) Copyright 2004-2010 Jacob Hipps
 
 */
+
 
 /******************************************************************************
  Global defines and compile options
 *******************************************************************************/
 
-#define BLUEFIRE_BUILD	20060000	// build series number
 #define MAX_NODES		512			// maximum pool size (obj, img, snd)
 #define MAX_LIGHTS		128			// max light sources
 #define MAX_SCRIPTS		2048		// max scripts
@@ -70,6 +70,26 @@
 #define BFE_SELMODE_OBJ			1
 #define BFE_SELMODE_LIGHTS		2
 #define BFE_SELMODE_ACTORS		3
+
+// State control bit masks
+#define BF_STATE_LIGHTS			1
+#define BF_STATE_TEXTURE		2
+
+// Render mode control
+#define BF_RMODE_GET_STATE		-1	// Not an actual mode. When given to
+									// bfr_set_mode() it returns the current
+									// render mode w/o making a change
+#define BF_RMODE_FULL			0	// Full T&L
+#define BF_RMODE_STENCODE		1	// Encodes state information as surface colors
+									// R = lighting enabled, G = texturing enabled
+#define BF_RMODE_NORMALS		2	// Encodes normal information as surface colors
+#define BF_RMODE_NOTL			3	// Disables T&L, uses color only
+
+// Alpha/blending mode control
+#define BF_AMODE_GET_STATE		-1	// Like above. Returns current blend mode.
+#define BF_AMODE_NORMAL			0	// Normal. Uses texture RGBA channels.
+#define BF_AMODE_LUMA			1	// Uses texture alpha channel multiplied by the current color
+
 
 // Macros
 
@@ -493,7 +513,8 @@ typedef struct {
 	void (*bf_set_ready)(int readz);
 	BF_TRIANGLE_EX* (*bf_getpoly)(int num);
 	int (*bf_poly_cnt)();
-	void (*go_down)();	
+	void (*go_down)();
+	void (*bf_exception)(int sig);
 
 } BF_DLL_EXPORT;
 
@@ -1134,14 +1155,13 @@ Version/Build info
 
 */
 BF_EXPORTZ char* bf_get_buildtime();
-BF_EXPORTZ char* bf_get_build();
 BF_EXPORTZ char* bf_get_version();
+BF_EXPORTZ char* bf_get_build();
+BF_EXPORTZ int   bf_get_buildi();
 
 // BFW exception handler
 
-#ifndef DISABLE_EXCEPTION_HANDLING
-BF_EXPORTZ void exception(int sig);
-#endif
+BF_EXPORTZ void bf_exception(int sig);
 
 #endif
 

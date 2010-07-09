@@ -1,218 +1,334 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="9.00"
 	Name="bfw"
+	ProjectGUID="{3D22D9E0-9281-4212-A51A-D4954F5E016A}"
 	RootNamespace="bfw"
-	SccProjectName=""
-	SccLocalPath="">
+	TargetFrameworkVersion="131072"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="DLL|Win32"
 			OutputDirectory=".\bfw___Win32_DLL"
 			IntermediateDirectory=".\bfw___Win32_DLL"
 			ConfigurationType="2"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\bfw___Win32_DLL/bfw.tlb"
+				HeaderFileName=""
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
-				OptimizeForProcessor="3"
-				AdditionalIncludeDirectories="&quot;freetype-2.1.9/include&quot;; openal/include"
-				PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS"
-				StringPooling="TRUE"
+				AdditionalIncludeDirectories="openal/include; freetype-2.3.12/include"
+				PreprocessorDefinitions="EXCLUDE_FT2;NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS"
+				GeneratePreprocessedFile="0"
+				StringPooling="true"
 				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="TRUE"
+				EnableFunctionLevelLinking="true"
 				PrecompiledHeaderFile=".\bfw___Win32_DLL/bfw.pch"
 				AssemblerListingLocation=".\bfw___Win32_DLL/"
 				ObjectFile=".\bfw___Win32_DLL/"
 				ProgramDataBaseFileName=".\bfw___Win32_DLL/"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
-				CompileAs="0"/>
+				SuppressStartupBanner="true"
+				CompileAs="0"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="freetype219MT.lib zlib.lib png.lib openal/libs/win32/openal32.lib openal/libs/win32/alut.lib python25.lib"
-				OutputFile="bluefire.dll"
-				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\bfw___Win32_DLL/bluefire.pdb"
-				SubSystem="2"
-				ImportLibrary="bluefire.lib"
-				TargetMachine="1"/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="TRUE"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\bfw___Win32_DLL/bfw.tlb"
-				HeaderFileName=""/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Pack DLL with UPX"
-				CommandLine="upx.exe -q $(InputDir)$(TargetFileName)"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"/>
+				Culture="1033"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCLinkerTool"
+				AdditionalDependencies="zlib.lib png.lib openal/libs/win32/openal32.lib openal/libs/win32/alut.lib python25.lib"
+				OutputFile="bluefire.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="true"
+				IgnoreDefaultLibraryNames="libc.lib"
+				ProgramDatabaseFile=".\bfw___Win32_DLL/bluefire.pdb"
+				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				ImportLibrary="bluefire.lib"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Pack DLL with UPX"
+				CommandLine="upx.exe -q $(InputDir)$(TargetFileName)"
+				ExcludedFromBuild="true"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\Release"
 			IntermediateDirectory=".\Release"
 			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Release/bfw.tlb"
+				HeaderFileName=""
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS"
-				StringPooling="TRUE"
-				RuntimeLibrary="4"
-				EnableFunctionLevelLinking="TRUE"
-				UsePrecompiledHeader="2"
+				StringPooling="true"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\Release/bfw.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
 				ProgramDataBaseFileName=".\Release/"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"/>
+				SuppressStartupBanner="true"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="zlib.lib png.lib odbc32.lib odbccp32.lib"
 				OutputFile="bfw.exe"
 				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
+				SuppressStartupBanner="true"
 				ProgramDatabaseFile=".\Release/bfw.pdb"
 				SubSystem="2"
-				TargetMachine="1"/>
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="TRUE"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\Release/bfw.tlb"
-				HeaderFileName=""/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\Debug"
 			IntermediateDirectory=".\Debug"
 			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Debug/bfw.tlb"
+				HeaderFileName=""
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;BLUEFIRE_CORE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
-				UsePrecompiledHeader="2"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\Debug/bfw.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="4"/>
+				SuppressStartupBanner="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile=".\Debug/bfw.exe"
 				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				GenerateDebugInformation="TRUE"
+				SuppressStartupBanner="true"
+				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/bfw.pdb"
 				SubSystem="2"
-				TargetMachine="1"/>
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="TRUE"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/bfw.tlb"
-				HeaderFileName=""/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="DebugDLL|Win32"
 			OutputDirectory=".\Debug"
 			IntermediateDirectory=".\Debug"
 			ConfigurationType="2"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\bfw___Win32_DLL/bfw.tlb"
+				HeaderFileName=""
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
@@ -220,60 +336,66 @@
 				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="&quot;freetype-2.1.9/include&quot;; openal/include"
 				PreprocessorDefinitions="_DEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS"
-				StringPooling="FALSE"
+				StringPooling="false"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				EnableFunctionLevelLinking="FALSE"
+				EnableFunctionLevelLinking="false"
 				PrecompiledHeaderFile=".\bfw___Win32_DLL/bfw.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
+				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
-				CompileAs="2"/>
+				CompileAs="2"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="freetype219MT.lib zlib.lib png.lib openal/libs/win32/openal32.lib openal/libs/win32/alut.lib python25.lib"
 				OutputFile="bluefire.dll"
 				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				GenerateDebugInformation="TRUE"
+				SuppressStartupBanner="true"
+				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/bluefire.pdb"
 				SubSystem="2"
-				SupportUnloadOfDelayLoadedDLL="FALSE"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				SupportUnloadOfDelayLoadedDLL="false"
 				ImportLibrary="bluefire.lib"
-				TargetMachine="1"/>
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="TRUE"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\bfw___Win32_DLL/bfw.tlb"
-				HeaderFileName=""/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -281,406 +403,528 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
+			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+			>
 			<File
-				RelativePath="audio.cpp">
+				RelativePath="audio.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						PreprocessorDefinitions=""/>
+						PreprocessorDefinitions=""
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugDLL|Win32">
+					Name="DebugDLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="bfw.cpp">
+				RelativePath="bfw.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						PreprocessorDefinitions=""/>
+						PreprocessorDefinitions=""
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugDLL|Win32">
+					Name="DebugDLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="bfz_read.cpp">
+				RelativePath="bfz_read.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						PreprocessorDefinitions=""/>
+						PreprocessorDefinitions=""
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugDLL|Win32">
+					Name="DebugDLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\coldet.cpp">
+				RelativePath=".\coldet.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\config.cpp">
+				RelativePath=".\config.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="console.cpp">
+				RelativePath="console.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						PreprocessorDefinitions=""/>
+						PreprocessorDefinitions=""
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugDLL|Win32">
+					Name="DebugDLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\env.cpp">
+				RelativePath=".\env.cpp"
+				>
 			</File>
 			<File
-				RelativePath="errors.cpp">
+				RelativePath="errors.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						PreprocessorDefinitions=""/>
+						PreprocessorDefinitions=""
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugDLL|Win32">
+					Name="DebugDLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\img.cpp">
+				RelativePath=".\img.cpp"
+				>
 			</File>
 			<File
-				RelativePath="k_bci.cpp">
+				RelativePath="k_bci.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						PreprocessorDefinitions=""/>
+						PreprocessorDefinitions=""
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugDLL|Win32">
+					Name="DebugDLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="lights.cpp">
+				RelativePath="lights.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						PreprocessorDefinitions=""/>
+						PreprocessorDefinitions=""
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugDLL|Win32">
+					Name="DebugDLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\obj.cpp">
+				RelativePath=".\obj.cpp"
+				>
 			</File>
 			<File
-				RelativePath="raytrace.cpp">
+				RelativePath=".\physics.cpp"
+				>
+			</File>
+			<File
+				RelativePath="raytrace.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						PreprocessorDefinitions=""/>
+						PreprocessorDefinitions=""
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugDLL|Win32">
+					Name="DebugDLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\render.cpp">
-			</File>
-			<File
-				RelativePath=".\scene.cpp">
-			</File>
-			<File
-				RelativePath=".\script.cpp">
-			</File>
-			<File
-				RelativePath="sort.cpp">
+				RelativePath=".\render.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						GeneratePreprocessedFile="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\scene.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\script.cpp"
+				>
+			</File>
+			<File
+				RelativePath="sort.cpp"
+				>
+				<FileConfiguration
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						PreprocessorDefinitions=""/>
+						PreprocessorDefinitions=""
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugDLL|Win32">
+					Name="DebugDLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="test.cpp">
+				RelativePath="test.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						PreprocessorDefinitions=""/>
+						PreprocessorDefinitions=""
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugDLL|Win32">
+					Name="DebugDLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"/>
+						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS;_MBCS;$(NoInherit)"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\version.cpp">
+				RelativePath=".\version.cpp"
+				>
 				<FileConfiguration
-					Name="DLL|Win32">
+					Name="DLL|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
 						PreprocessorDefinitions="NDEBUG;BLUEFIRE_DEMO;BLUEFIRE_CORE;WIN32;_WINDOWS"
-						CompileAs="0"/>
+						CompileAs="0"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\window.cpp">
+				RelativePath=".\window.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl">
+			Filter="h;hpp;hxx;hm;inl"
+			>
 			<File
-				RelativePath="bf_render.h">
+				RelativePath="bf_render.h"
+				>
 			</File>
 			<File
-				RelativePath="bluefire.h">
+				RelativePath="bluefire.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+			>
 			<File
-				RelativePath="rez.rc">
+				RelativePath="rez.rc"
+				>
 			</File>
 		</Filter>
 	</Files>

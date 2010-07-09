@@ -21,6 +21,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 // Version Globals
 char monthlist[][8] = { "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec" };
@@ -53,4 +54,8 @@ char* bf_get_build() {
 	sprintf(bfCoreBuild,"%04i%02i%02i",yearx,monthy,dayx);
 
 	return bfCoreBuild;
+}
+
+int bf_get_buildi() {
+	return atoi(bf_get_build());
 }

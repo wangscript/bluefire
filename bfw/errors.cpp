@@ -43,9 +43,9 @@ void exception(int sig);
 int bf_catchme() {
 
 	#ifndef DISABLE_EXCEPTION_HANDLING
-	signal(SIGFPE,exception);
-	signal(SIGILL,exception);
-	signal(SIGSEGV,exception);
+	signal(SIGFPE,bf_exception);
+	signal(SIGILL,bf_exception);
+	signal(SIGSEGV,bf_exception);
 	#endif
 
 	InitializeCriticalSection(&zCritical);
@@ -54,7 +54,7 @@ int bf_catchme() {
 }
 
 // exception handler
-void exception(int sig) {	
+void bf_exception(int sig) {	
 
 	char msgstring[512];
 	char tracey[256];	
@@ -93,30 +93,32 @@ void exception(int sig) {
 
 	switch(sig) {
 		case SIGFPE:
-			zlogthis("critical: exiting due to divide by zero or overflow (SIGFPE)");
-			sprintf(msgstring,"SIGFPE: Divide by zero or overflow\n\nCall trace:\n%s",tracey);
-			MessageBox(NULL,msgstring,"BFW: Exception",0);
+			zlogthis("Critical: Exiting due to divide by zero or overflow (SIGFPE)!");
+			sprintf(msgstring,"Critical: Exiting due to divide by zero or overflow (SIGFPE)\n\nCall trace:\n%s",tracey);
+			MessageBox(NULL,msgstring,"bfw dreamcatcher - Fatal Exception!",0);
 			LeaveCriticalSection(&zCritical);
 			DeleteCriticalSection(&zCritical);
 			go_down();
 		case SIGILL:
-			zlogthis("Critical: Exiting due to illegal function call (SIGILL)");
-			MessageBox(NULL,"SIGILL: Illegal function call","BFW: Exception",0);
+			zlogthis("Critical: Exiting due to illegal function call (SIGILL)!");
+			sprintf(msgstring,"Critical: Exiting due to illegal function call (SIGILL)\n\nCall trace:\n%s",tracey);
+			MessageBox(NULL,msgstring,"bfw dreamcatcher - Fatal Exception!",0);
 			fclose(logfile);
 			LeaveCriticalSection(&zCritical);
 			DeleteCriticalSection(&zCritical);
 			exit(254);
 		case SIGSEGV:
-			zlogthis("Critical: Exiting due to segmentation fault (SIGSEGV)");
+			zlogthis("Critical: Exiting due to segmentation fault (SIGSEGV)!");
 			sprintf(msgstring,"Critical: Exiting due to segmentation fault (SIGSEGV)\n\nCall trace:\n%s",tracey);
-			MessageBox(NULL,msgstring,"BFW: Exception",0);
+			MessageBox(NULL,msgstring,"bfw dreamcatcher - Fatal Exception!",0);
 			fclose(logfile);
 			LeaveCriticalSection(&zCritical);
 			DeleteCriticalSection(&zCritical);
 			exit(253);
 		default:
-			zlogthis("critical: exiting due to unknown fault");
-			MessageBox(NULL,"Unknown fault","BFW: Exception",0);
+			zlogthis("Critical: Exiting due to unknown fault. (sig = %i)\n",sig);
+			sprintf(msgstring,"Critical: Exiting due to unknown fault!\n\nCall trace:\n%s",tracey);
+			MessageBox(NULL,msgstring,"bfw dreamcatcher - Fatal Exception!",0);
 			fclose(logfile);
 			LeaveCriticalSection(&zCritical);
 			DeleteCriticalSection(&zCritical);

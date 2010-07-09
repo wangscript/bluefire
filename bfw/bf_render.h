@@ -2,9 +2,14 @@
 
   Bluefire: Render DLL Header file
 
-  (c) Copyright 2004-2009 Jacob Hipps
+  (c) Copyright 2004-2010 Jacob Hipps
 
 */
+
+
+// Macros and Defines
+#define bfr_get_mode()	bfr_set_mode(BF_RMODE_GET_STATE)
+#define bfr_get_blending()  bfr_set_blending(BF_AMODE_GET_STATE)
 
 
 #ifdef _BF_MAIN
@@ -53,7 +58,7 @@ BF_EXTERNZ void (*bf_set_ready)(int readz);
 BF_EXTERNZ BF_TRIANGLE_EX* (*bf_getpoly)(int num);
 BF_EXTERNZ int (*bf_poly_cnt)();
 BF_EXTERNZ void (*go_down)();
-
+BF_EXTERNZ void (*bf_exception)(int sig);
 
 // Exports (for DLLs)
 
@@ -138,22 +143,42 @@ BFEXPORT void bf_set_viewport(int vp1, int vp2, int vp3, int vp4, HWND hwndz);
 
 BFEXPORT void bf_render_actor(BF_ACTOR_DATA *actorx);
 
+// FreeType2 routines (font_ft.cpp)
+
 BFEXPORT int  bf_ft_init();
 BFEXPORT void bf_ft_kill();
 BFEXPORT void bf_ft_addfont(const char * fname, unsigned int h);
 BFEXPORT void bf_ft_print(int font_id, float x, float y, const char *fmt, ...);
 BFEXPORT void bf_ft_font_remove();
 
+// GLSL shader handling (shaders.cpp)
+
+//BFEXPORT void bf_load_shader(char *filename);
+//BFEXPORT void bf_unload_shaders();
 BFEXPORT void bf_reload_shaders();
+BFEXPORT int bfr_set_mode(int modectrl);
+BFEXPORT int bfr_set_blending(int modectrl);
+
+// Version & Build info (version.cpp)
+
+BFEXPORT void  rdx_get_version(char *ver);
+BFEXPORT void  rdx_get_buildtime(char *bt);
+BFEXPORT void  rdx_get_build(char *bt);
+BFEXPORT int   rdx_get_buildi();
 
 #else
 
+
 // Imports (for BF Core)
+
+// Typedefs!! (this is so fucking confusing... TODO: write complicated macro)
 
 #define BOOBOO __cdecl
 
+typedef void (BOOBOO * BF_STR_VOID)(char *str1);
 typedef void (BOOBOO * BF_NO_ARGS_VOID)();
 typedef int  (BOOBOO * BF_NO_ARGS_INT)();
+
 typedef void (BOOBOO * BF_1INT_VOID)(int int1);
 typedef int  (BOOBOO * BF_1INT_INT)(int int1);
 typedef void (BOOBOO * BF_2INTS_VOID)(int int1, int int2);
@@ -280,5 +305,12 @@ BF_EXTERNZ BF_FTPRINT		bf_ft_print;
 BF_EXTERNZ BF_NO_ARGS_VOID	bf_ft_font_remove;
 
 BF_EXTERNZ BF_NO_ARGS_VOID	bf_reload_shaders;
+BF_EXTERNZ BF_1INT_INT		bfr_set_mode;
+BF_EXTERNZ BF_1INT_INT		bfr_set_blending;
+
+BF_EXTERNZ BF_STR_VOID		rdx_get_version;
+BF_EXTERNZ BF_STR_VOID		rdx_get_buildtime;
+BF_EXTERNZ BF_STR_VOID		rdx_get_build;
+BF_EXTERNZ BF_NO_ARGS_INT	rdx_get_buildi;
 
 #endif
