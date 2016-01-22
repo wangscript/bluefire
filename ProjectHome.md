@@ -1,0 +1,13 @@
+The goal of the **Bluefire System** (also, **bluefire** or **bfw**) is to become an easy-to-implement graphics system for use primarily in gaming, industrial visualization, and demonstrations. Eventually, it should be able to facilitate easy cross-platform development and seamless client integration (although current support is limited to Windows, and some tools available as Windows and Linux/UNIX versions)
+
+Currently, Bluefire System consists of the core library (**bfw\_core**, or simply **bfw**) to which client applications can link against. This library implements the engine's core functions, including resource & asset management, scene optimization, Python scripting support, memory management, debugging and logging facilities, and dynamic plugin loading. Bluefire uses a modular rendering model (ie. _plugins_), which allows the user or client application to switch the underlying rendering system as needed. Development is currently focused on [OpenGL](http://www.opengl.org/)  as the preferred rendering subsystem/API (which is implemented as **render\_ogl**), but support for other APIs (such as DirectX) is planned. Support for [GPU-accelerated shaders (GLSL)](http://en.wikipedia.org/wiki/GLSL) is currently under development, with basic operations currently functional.
+
+As for audio, I have opted to use [OpenAL](http://connect.creativelabs.com/openal/) due to its simplicity and similarity to the familiar OpenGL API. OpenAL development is headed by [Creative Labs](http://www.creativelabs.com/), and supports features such as [EAX](http://en.wikipedia.org/wiki/Environmental_audio_extensions) and 3D audio rendering for surround-sound capable hardware.
+
+Bluefire is currently under development. You can check out the latest development news on the **[bfw dev](http://bfwdev.blogspot.com/)** (Bluefire Development) blog!! If you would like to contribute, either through coding or testing, feel free to browse the source code, compile the latest SVN Trunk, or download a binary release. When reporting problems or bugs, I ask that you please provide Bluefire's log file (_bfw.log_) which is a human-readable log detailing Bluefire's operation, your computer's hardware config, and version/compile information for all components involved.
+
+For more info, including project goals, detailed API info, and how to use Bluefire in _your_ application (including examples), be sure to visit the Wiki (link at the top of this page)!
+
+Happy hacking,
+
+~ tetrisfrog (j. hipps)
